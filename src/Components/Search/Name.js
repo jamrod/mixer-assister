@@ -1,5 +1,7 @@
 import React from 'react'
 
+import '../../App.css'
+
 function Name (props) {
     //console.log(props)
     return(

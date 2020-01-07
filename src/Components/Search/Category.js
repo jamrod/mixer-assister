@@ -1,5 +1,7 @@
 import React from 'react'
 
+import '../../App.css'
+
 function Category (props) {
     //console.log(props)
     //TODO declare array of categories

@@ -1,5 +1,7 @@
 import React from 'react'
 
+import '../App.css'
+
 function Explainer () {
     return (
     <div className="flex-container">

@@ -4,6 +4,8 @@ import Name from './Name'
 import Category from './Category'
 import Details from '../Details/Details'
 
+import '../../App.css'
+
 class Search extends Component {
     constructor(props) {
         super(props)
@@ -13,7 +15,7 @@ class Search extends Component {
             url:"https://www.thecocktaildb.com/api/json/v1/1/",
             results: false,
             resultsArray: [],
-            drink: {},
+            drink: null,
         }
     }
 
@@ -65,11 +67,18 @@ class Search extends Component {
     }
 
     handleResults = (res) => {
-        console.log(res) 
-        if (res.drinks.length === 1) {
+        console.log(res)
+        let drinks = Array.from(res.drinks)
+        console.log(drinks)
+        console.log(drinks.length)
+        if (drinks.length === 1) {
             this.setState({
-                drink: res.drink[0]
+                drink: drinks[0]
             })
+        } else {
+            this.setState({
+                resultsArray: drinks
+            }) 
         }
         this.setState({
             results: true
@@ -80,15 +89,22 @@ class Search extends Component {
         //TODO finish this Details code
         let detail
         if (this.state.results) {
-            detail = <Details drink={this.state.drink} />
+            if (this.state.drink) {
+                detail = <Details searching={false} drink={this.state.drink} />
+            } else {
+                detail = <Details searching={true} drinks={this.state.resultsArray} />
+            }
+            
         }
         return (
             <div className="flex-container-column">
-                <Name searchField={this.state.searchField} getChange={this.getChange} />
-                <Category option={this.state.category} getChange={this.getChange} />
-                <button onClick={this.handleClick}>Search</button>
+                <div className="search-items">
+                    <Name searchField={this.state.searchField} getChange={this.getChange} />
+                    <Category option={this.state.category} getChange={this.getChange} />
+                    <button onClick={this.handleClick}>Search</button>
+                </div>
                 
-                <Details />
+                {detail}
             </div>
         )
     }
