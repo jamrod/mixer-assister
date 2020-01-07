@@ -3,7 +3,8 @@ import React from 'react'
 import '../../App.css'
 
 function Drink (props) {
-    let drink = props.drink
+    console.log("Drink " + props)
+    const drink = props.location.state.drink
     let drinkArray = Object.keys(drink)
     let ingredientArr = []
     let measureArr = []

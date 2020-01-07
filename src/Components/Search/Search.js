@@ -1,8 +1,11 @@
 import React, { Component } from 'react'
+import { Redirect } from 'react-router-dom'
+
 
 import Name from './Name'
 import Category from './Category'
 import Details from '../Details/Details'
+import Drink from '../Details/Drink'
 
 import '../../App.css'
 
@@ -69,8 +72,9 @@ class Search extends Component {
     handleResults = (res) => {
         console.log(res)
         let drinks = Array.from(res.drinks)
-        console.log(drinks)
-        console.log(drinks.length)
+        //console.log(drinks)
+        //console.log(drinks.length)
+        //if drinks is only one object render drink
         if (drinks.length === 1) {
             this.setState({
                 drink: drinks[0]
@@ -86,13 +90,21 @@ class Search extends Component {
     }
 
     render () {
-        //TODO finish this Details code
+        //TODO change detail to use route
         let detail
         if (this.state.results) {
             if (this.state.drink) {
-                detail = <Details searching={false} drink={this.state.drink} />
+                detail = <Redirect push to={{
+                    pathname: "/drink/" + this.state.drink.strDrink,
+                    state: {
+                        drink: this.state.drink,
+                    }
+                }} 
+                />
+                // detail = <Details searching={false} drink={this.state.drink} />
             } else {
-                detail = <Details searching={true} drinks={this.state.resultsArray} />
+                console.log("call serachResults here")
+                // detail = <Details searching={true} drinks={this.state.resultsArray} />
             }
             
         }
@@ -103,7 +115,7 @@ class Search extends Component {
                     <Category option={this.state.category} getChange={this.getChange} />
                     <button onClick={this.handleClick}>Search</button>
                 </div>
-                
+            
                 {detail}
             </div>
         )
