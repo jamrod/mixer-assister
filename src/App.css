@@ -1,15 +1,21 @@
+/* body {
+  background-image: url("glasses.jpg")
+} */
+
 .App {
-  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
-.flex-container{
+.flex-container-row{
   display: flex;
   flex-direction: row;
   align-items: center;
+
 }
 
-.flex-container{
-  display: row;
+.flex-container-column{
+  display: flex;
   flex-direction: column;
   align-items: center;
 }

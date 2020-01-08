@@ -7,7 +7,7 @@ import '../../App.css'
 function Details (props) {
     console.log("Details " + props)
     return (
-        <div className="flex-container">
+        <div className="flex-container-column">
             <h1>Results will show here</h1>
         </div>
     )

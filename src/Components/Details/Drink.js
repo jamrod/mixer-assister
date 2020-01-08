@@ -34,7 +34,7 @@ function Drink (props) {
         <div className="Drink">
             <h3>{drink.strDrink}</h3>
             <h4>Glass: {drink.strGlass}</h4>
-            <div className="flex-container category">
+            <div className="flex-container-row category">
                 <span>{drink.strAlcoholic}</span>
                 <span>Category: {drink.strCategory}</span>
             </div>

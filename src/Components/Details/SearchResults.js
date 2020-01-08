@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 function SearchResults(props) {
     console.log("SearchResults " + props)
     let results = props.location.state.results
-    console.log(results)
+    //console.log(results)
     //if results.length is greater than 10 render first 10 results and a next button
     //next button will render the next 10 results and a previous button and so on
     if (results.length > 10) {
@@ -14,7 +14,7 @@ function SearchResults(props) {
 
     return (
         
-        <div className="flex-container-column">
+        <div className="flex-container-row">
             <h3>Search Results</h3>
             {results.map((item, i) => (
                 <Link to={{

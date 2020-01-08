@@ -13,7 +13,7 @@ import SearchResults from './Components/Details/SearchResults'
 
 function App() {
   return (
-    <div className="App">
+    <div className="App flex-container-column">
       <Header />
       <Explainer />
       <Search />
