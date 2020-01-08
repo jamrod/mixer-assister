@@ -8,7 +8,7 @@ function Name (props) {
     return(
         <div className="flex-container-row">
             <label>Search by Name </label>
-            <input type="text" id="name-search" value={props.searchField} onChange={ (e) => {{props.getChange(true, e.target.value)}}}></input>
+            <input type="text" id="name-search" value={props.searchField} onChange={ (e) => {{props.getChange(e.target.value)}}}></input>
         </div>
     )
 }

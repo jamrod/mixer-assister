@@ -1,12 +1,8 @@
 import React, { Component } from 'react'
-import { Redirect, Route } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 
 
 import Name from './Name'
-import Category from './Category'
-import TwoLevelSearch from './TwoLevelSearch'
-// import Details from '../Details/Details'
-// import Drink from '../Details/Drink'
 
 import '../../App.css'
 
@@ -15,36 +11,27 @@ class Search extends Component {
         super(props)
         this.state = {
             searchField: '',
-            category: 'Select Category',
             url:"https://www.thecocktaildb.com/api/json/v1/1/",
             results: false,
             resultsArray: [],
             drink: null,
-            twoLevel: false,
         }
     }
 
     //method to update state from form changes
-    getChange = (isName, str) => {
-        if (isName) {
+    getChange = (str) => {
         this.setState(prevState => ({searchField: str}))
-        } else {
-            this.setState(prevState => ({category: str}))
-        }
     }
 
     //method to handle click, also triggered by keydown enter
     handleClick = () => {
         if (this.state.searchField !== '') {
             this.nameSearch()
-        } else if (this.state.category !== 'Select Category') {
-            this.categorySearch()
         } else {
             let url = this.state.url + "random.php"
             this.apiCall(url)
         }
         this.setState(prevState => ({
-            category: '',
             searchField: '',
         }))
     }
@@ -62,21 +49,10 @@ class Search extends Component {
         let url = this.state.url + "search.php?s=" + name
         this.apiCall(url)
         this.setState(prevState => ({
-            category: 'Select Category',
             twoLevel: false,
         }))
     }
 
-    //method to start a category search
-    categorySearch = () => {
-        console.log("category " + this.state.category)
-        this.setState(prevState => ({
-            drink: null,
-            twoLevel: true,
-        }))
-        let url = this.state.url + "filter.php?c=" + this.state.category
-        this.apiCall(url)
-    }
 
     //API call, passes results to handleResults
     apiCall(url) {
@@ -124,22 +100,8 @@ class Search extends Component {
                     }
                 }} />
                 )
-            //else if got a return from a category search, use TwoLevelSearch, pass in nameSearch so it can be run on final selection
-            } else if (this.state.twoLevel){ 
-                return (
-                    <>
-                    <Redirect push to={{
-                        pathname: "/two-search",
-                        state: {
-                            results: this.state.resultsArray,
-                        }
-                    }} />
-                    <Route path="/two-search" render={props => <TwoLevelSearch nameSearch = {this.nameSearch} results={this.state.resultsArray} />} />
-                    </>
-                // <TwoLevelSearch results={this.state.resultsArray} nameSearch={this.nameSearch} />
-                )
-            //else display search results when received multiple complete drink objects
-            } else if (!this.state.twoLevel){
+            //else render all the results as links in search-results
+            }  else {
                 return (
                 <Redirect push to={{
                     pathname: "/search-results",
@@ -162,11 +124,10 @@ class Search extends Component {
             <div className="flex-container-column">
                 <div className="search-items" onKeyDown={this.keyPressed}>
                     <Name searchField={this.state.searchField} getChange={this.getChange} />
-                    <Category option={this.state.category} getChange={this.getChange} />
                     <button onClick={this.handleClick}>Search</button>
                 </div>
                 {this.defineDetail()}
-                <Route path="/two-search" render={props => <TwoLevelSearch nameSearch = {this.nameSearch} results={this.state.resultsArray} />} />
+                
             </div>
         )
     }

@@ -9,7 +9,6 @@ import Search from './Components/Search/Search';
 import Details from './Components/Details/Details'
 import Drink from './Components/Details/Drink'
 import SearchResults from './Components/Details/SearchResults'
-import TwoLevelSearch from './Components/Search/TwoLevelSearch'
 
 
 function App() {
