@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Redirect } from 'react-router-dom'
+import { Redirect, Route } from 'react-router-dom'
 
 
 import Name from './Name'
@@ -69,6 +69,7 @@ class Search extends Component {
 
     //method to start a category search
     categorySearch = () => {
+        console.log("category " + this.state.category)
         this.setState(prevState => ({
             drink: null,
             twoLevel: true,
@@ -91,7 +92,7 @@ class Search extends Component {
 
     //handles results of API call
     handleResults = (res) => {
-        console.log("handleResults" + res)
+        console.log("handleResults" + res.drinks)
         let drinks = Array.from(res.drinks)
 
         //if drinks is only one object render drink
@@ -112,6 +113,7 @@ class Search extends Component {
     }
 
     defineDetail = () => {
+        
         if (this.state.results) { //if got results
             if (this.state.drink) { //if got a single drink, render Drink
                 return (
@@ -125,10 +127,19 @@ class Search extends Component {
             //else if got a return from a category search, use TwoLevelSearch, pass in nameSearch so it can be run on final selection
             } else if (this.state.twoLevel){ 
                 return (
-                <TwoLevelSearch results={this.state.resultsArray} nameSearch={this.nameSearch} />
+                    <>
+                    <Redirect push to={{
+                        pathname: "/two-search",
+                        state: {
+                            results: this.state.resultsArray,
+                        }
+                    }} />
+                    <Route path="/two-search" render={props => <TwoLevelSearch nameSearch = {this.nameSearch} results={this.state.resultsArray} />} />
+                    </>
+                // <TwoLevelSearch results={this.state.resultsArray} nameSearch={this.nameSearch} />
                 )
             //else display search results when received multiple complete drink objects
-            } else {
+            } else if (!this.state.twoLevel){
                 return (
                 <Redirect push to={{
                     pathname: "/search-results",
@@ -155,6 +166,7 @@ class Search extends Component {
                     <button onClick={this.handleClick}>Search</button>
                 </div>
                 {this.defineDetail()}
+                <Route path="/two-search" render={props => <TwoLevelSearch nameSearch = {this.nameSearch} results={this.state.resultsArray} />} />
             </div>
         )
     }

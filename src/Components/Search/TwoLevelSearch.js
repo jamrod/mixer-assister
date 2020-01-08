@@ -1,12 +1,14 @@
 import React from 'react'
 
 function TwoLevelSearch (props) {
-    console.log(props)
-    let results = props.results
-    if (results.length > 10) {
-        console.log("write long render function")
-        results = results.slice(0,10)
-    }
+    console.log("twoLevel " + props.results)
+    
+        let results = props.results
+        if (results.length > 10) {
+            console.log("write long render function")
+            results = results.slice(0,10)
+        }
+    
 
     function onClick(str) {
         //console.log(e)

@@ -9,6 +9,7 @@ import Search from './Components/Search/Search';
 import Details from './Components/Details/Details'
 import Drink from './Components/Details/Drink'
 import SearchResults from './Components/Details/SearchResults'
+import TwoLevelSearch from './Components/Search/TwoLevelSearch'
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
           <Route path="/" component={Details} exact></Route>
           <Route path="/drink/:drink" component={Drink} />
           <Route path="/search-results" component={SearchResults} />
+          
       </Switch>
       <Footer />
     </div>
