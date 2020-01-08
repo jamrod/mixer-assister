@@ -1,29 +1,39 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
+import '../../App.css'
+
 function SearchResults(props) {
     console.log("SearchResults " + props)
     let results = props.location.state.results
     //console.log(results)
-    //if results.length is greater than 10 render first 10 results and a next button
-    //next button will render the next 10 results and a previous button and so on
-    if (results.length > 10) {
-        console.log("write long render function")
-        results = results.slice(0,10)
-    } 
+   
+    // if (results.length > 10) {
+    //     console.log("write long render function")
+    //     results = results.slice(0,10)
+    // } 
 
     return (
         
-        <div className="flex-container-row">
+        <div className="flex-container-column details search-results">
             <h3>Search Results</h3>
-            {results.map((item, i) => (
-                <Link to={{
-                    pathname: "/drink/" + item.strDrink,
-                    state: {
-                        drink: item
-                    }
-                }} key={i} >{item.strDrink}</Link>
-            )) } 
+            
+            <div className="flex-container-row">
+                {results.map((item, i) => (
+                    <Link to={{
+                        pathname: "/drink/" + item.strDrink,
+                        state: {
+                            drink: item
+                        }
+                    }} key={i} >
+                        <div className="flex-container-column">
+                            {item.strDrink}
+                            <img src={item.strDrinkThumb} className="thumbs" alt="thumb" />
+                        </div>
+                        </Link>
+                        
+                )) } 
+            </div>
         </div>
     )
 }

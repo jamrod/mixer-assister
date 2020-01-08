@@ -3,7 +3,7 @@ import React from 'react'
 import '../../App.css'
 
 function Drink (props) {
-    console.log("Drink " + props)
+    // console.log("Drink " + props)
     const drink = props.location.state.drink
     let drinkArray = Object.keys(drink)
     let ingredientArr = []
@@ -31,12 +31,12 @@ function Drink (props) {
     }
 
     return (
-        <div className="Drink">
+        <div className="drink details">
+            <div className="flex-container-column drink-description">
             <h3>{drink.strDrink}</h3>
             <h4>Glass: {drink.strGlass}</h4>
-            <div className="flex-container-row category">
-                <span>{drink.strAlcoholic}</span>
-                <span>Category: {drink.strCategory}</span>
+            <div className="flex-container-row">
+                <span>Type: {drink.strAlcoholic}</span>
             </div>
             <h4>Ingredients</h4>
             <ul className="ingredients">
@@ -44,12 +44,14 @@ function Drink (props) {
                     return <li className="ingredient-item" key={i}>{item}</li>
                 })}
             </ul>
+            
             <div className="instructions">
                 <h4>Instructions</h4>
                 <p>{drink.strInstructions}</p>
             </div>
-            <div className="pic">
-                <img src={drink.strDrinkThumb} />
+            </div>
+            <div className="pic-div">
+                <img src={drink.strDrinkThumb} className="pic" />
             </div>
         </div>
     )

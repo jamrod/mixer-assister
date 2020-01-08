@@ -18,9 +18,11 @@ class Search extends Component {
         }
     }
 
+
     //method to update state from form changes
     getChange = (str) => {
         this.setState(prevState => ({searchField: str}))
+        document.querySelector('#search').textContent = "Search"
     }
 
     //method to handle click, also triggered by keydown enter
@@ -34,6 +36,8 @@ class Search extends Component {
         this.setState(prevState => ({
             searchField: '',
         }))
+
+        document.querySelector('#search').textContent = "Get Random"
     }
 
     // method to handle keydown to capture enter
@@ -118,13 +122,12 @@ class Search extends Component {
     render () {
         
         //handle what will display in details depending on results of api call
-        let detail 
         
         return (
             <div className="flex-container-column">
-                <div className="search-items" onKeyDown={this.keyPressed}>
+                <div className="search-items flex-container-column" onKeyDown={this.keyPressed}>
                     <Name searchField={this.state.searchField} getChange={this.getChange} />
-                    <button onClick={this.handleClick}>Search</button>
+                    <button onClick={this.handleClick} id="search" >Get Random</button>
                 </div>
                 {this.defineDetail()}
                 

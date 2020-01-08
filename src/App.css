@@ -1,10 +1,12 @@
 body {
-  background: url("/glasses2.jpg");
+  background: url("/glasses2.jpg") rgb(50, 50, 50);
   background-size: cover;
+  background-repeat: no-repeat;
+  font-family: 'Noticia Text', serif;
 }
 
 .App {
-  background-color: rgba(250,250,250,.5) ;
+  background-color: rgba(255,250,250,.65) ;
   max-width: 800px;
   margin: 0 auto;
   padding: 5px 20px;
@@ -14,11 +16,101 @@ body {
   display: flex;
   flex-direction: row;
   align-items: center;
-
+  max-width: 800px;
+  flex-wrap: wrap;
 }
 
 .flex-container-column{
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.header {
+  font-family: 'Abril Fatface', cursive;
+  letter-spacing: .1em;
+}
+
+h2, h3, h4 {
+  font-family: 'Courier Prime', monospace;
+  letter-spacing: .02em;
+}
+
+#explainer {
+  text-align: center;
+}
+
+.name-input {
+  padding-bottom: 5px;
+}
+
+.name-input label, input {
+  padding: 0 10px;
+}
+
+#search {
+  min-width: 100px;
+  height: 25px;
+  background-color: white;
+  border-radius: 5px;
+  margin: 5px;
+}
+
+.details{
+  border: black 1px solid;
+
+}
+
+.drink {
+  padding: 5px 10px;
+  margin: 10px 0;
+  display: grid;
+  grid-template-columns: 2fr 2fr;
+}
+
+.drink-description {
+  grid-column: 1;
+}
+
+.pic-div {
+  display: flex;
+  align-items: center;
+}
+
+.pic {
+  max-width: 400px;
+  grid-column: 2;
+}
+
+.search-results {
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.search-results a {
+  text-decoration: none;
+  padding: 5px;
+  color: black;
+}
+
+a:hover {
+  color: rgb(50, 50, 100);
+  text-decoration: underline;
+}
+
+.thumbs {
+  max-width: 100px;
+}
+
+.details p {
+  margin: 5px 10px;
+} 
+
+@media screen and (max-width: 600px) {
+  .drink{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
 }

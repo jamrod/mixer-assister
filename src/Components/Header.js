@@ -4,7 +4,7 @@ import '../App.css'
 
 function Header () {
     return (
-        <div className="flex-container">
+        <div className="flex-container header">
             <h1>Mixer Assister!</h1>
         </div>
     )

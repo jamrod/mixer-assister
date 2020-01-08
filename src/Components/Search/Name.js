@@ -6,9 +6,10 @@ function Name (props) {
     //console.log(props)
     
     return(
-        <div className="flex-container-row">
+        <div className="flex-container-row name-input">
             <label>Search by Name </label>
             <input type="text" id="name-search" value={props.searchField} onChange={ (e) => {{props.getChange(e.target.value)}}}></input>
+            
         </div>
     )
 }
