@@ -4,9 +4,9 @@ import '../App.css'
 
 function Footer () {
     return (
-    <div className="flex-container">
+    <div className="flex-container footer">
         <p className="foot">Made with Love&hearts; by Jamrod 2020</p>
-        <p>Using <a href="https://www.thecocktaildb.com/api.php?ref=apilist.fun">thecocktaildb.com</a></p>
+        <p className="foot">Using <a href="https://www.thecocktaildb.com/api.php?ref=apilist.fun"> thecocktaildb.com</a></p>
     </div>
     )
 }

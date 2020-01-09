@@ -9,22 +9,27 @@ import Search from './Components/Search/Search';
 import Details from './Components/Details/Details'
 import Drink from './Components/Details/Drink'
 import SearchResults from './Components/Details/SearchResults'
-
+import Home from './Components/Home'
 
 function App() {
   return (
-    <div className="App flex-container-column">
-      <Header />
-      <Explainer />
-      <Search />
-      <Switch>
-          <Route path="/" component={Details} exact></Route>
-          <Route path="/drink/:drink" component={Drink} />
-          <Route path="/search-results" component={SearchResults} />
-          
-      </Switch>
-      <Footer />
+    
+    <div className="App">
+      <Home />
+      <div className="flex-container-column">
+        <Header />
+        <Explainer />
+        <Search />
+        <Switch>
+            <Route path="/" component={Details} exact></Route>
+            <Route path="/drink/:drink" component={Drink} />
+            <Route path="/search-results" component={SearchResults} />
+            
+        </Switch>
+        <Footer />
+      </div>
     </div>
+    
   );
 }
 
