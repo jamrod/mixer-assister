@@ -159,7 +159,7 @@ class Search extends Component {
                     }
                 }} />
                 )
-            //else render all the results as links in search-results
+            //else if category- render the category search
             }  else if (this.state.categorySearchEnabled) {
                 this.setState({categorySearchEnabled: false,})
                 console.log("Category Search from defineDetail")
@@ -169,6 +169,7 @@ class Search extends Component {
                         <Redirect push to="/category-search" />
                     </>
                 )
+            //else render all the results as links in search-results    
             }else {
                 return (
                 <Redirect push to={{

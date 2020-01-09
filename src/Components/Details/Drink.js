@@ -35,8 +35,10 @@ function Drink (props) {
             <div className="flex-container-column drink-description">
             <h3>{drink.strDrink}</h3>
             <h4>Glass: {drink.strGlass}</h4>
-            <div className="flex-container-row">
-                <span>Type: {drink.strAlcoholic}</span>
+            <div className="flex-container-row categories">
+                <span>Categories: </span>
+                <span>{drink.strAlcoholic}</span>
+                <span>{drink.strCategory}</span> 
             </div>
             <h4>Ingredients</h4>
             <ul className="ingredients">
