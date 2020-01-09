@@ -49,6 +49,7 @@ class Search extends Component {
             this.setState(prevState => ({
                 searchField: '',
                 lastSearch: searchTerm,
+                categorySearchEnabled: false,
             }))
             this.nameSearch()
 
@@ -82,6 +83,7 @@ class Search extends Component {
     categorySearch = () => {
         let url = this.state.url + "filter.php?c=" + this.state.category
         this.apiCall(url)
+        this.setState({category: 'Select Category',})
     }
 
     //API call, passes results to handleResults
@@ -113,13 +115,13 @@ class Search extends Component {
                     lastSearch: '',
                 })
                 //else if category sends results to resultsArray in state 
-            } else if (!this.state.category === 'Select Category') {
+            } else if (this.state.categorySearchEnabled) {
+                console.log("Category Search from handle results")
                 this.setState(prevState => ({
                     category: 'Select Category',
                     drink: null,
                     resultsArray: drinks,
                     lastSearch: '',
-                    categorySearchEnabled: true,
                 }))
                 //else sends results to resultsArray in state
             }else {
@@ -158,9 +160,14 @@ class Search extends Component {
                 }} />
                 )
             //else render all the results as links in search-results
-            }  else if (this.setState.Enabled) {
+            }  else if (this.state.categorySearchEnabled) {
+                this.setState({categorySearchEnabled: false,})
+                console.log("Category Search from defineDetail")
                 return (
-                    <Route path="/category-search" render={props => <CategorySearch secondSearch = {this.secondSearch} results={this.state.resultsArray} />} />
+                    <>
+                        <Route path="/category-search" render={props => <CategorySearch secondSearch = {this.secondSearch} results={this.state.resultsArray} />} />
+                        <Redirect push to="/category-search" />
+                    </>
                 )
             }else {
                 return (
@@ -194,6 +201,9 @@ class Search extends Component {
         let name = str
         let url = this.state.url + "search.php?s=" + name
         this.apiCall(url)
+        this.setState({
+
+        })
     }
 
     render () {
