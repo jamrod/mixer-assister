@@ -6,7 +6,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  /* height: 100vh; */
 }
 
 .App {
@@ -123,6 +123,14 @@ a:hover {
   margin: 5px 10px;
 } 
 
+.recents{
+  font-size: small;
+  justify-content: space-around;
+}
+.recents span {
+  padding:0 5px;
+}
+
 .foot {
   font-size: small;
   margin: 0;
@@ -142,8 +150,8 @@ a:hover {
   }
 }
 
-@media screen and (max-width: 820px) {
+/* @media screen and (max-width: 820px) {
   body {
     height: auto;
   }
-}
+} */

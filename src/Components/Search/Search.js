@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
 
-
 import Name from './Name'
+import Recents from './Recents'
 
 import '../../App.css'
 
@@ -15,6 +15,7 @@ class Search extends Component {
             results: false,
             resultsArray: [],
             drink: null,
+            recents: [],
         }
     }
 
@@ -52,9 +53,6 @@ class Search extends Component {
         let name = this.state.searchField.toLowerCase()
         let url = this.state.url + "search.php?s=" + name
         this.apiCall(url)
-        this.setState(prevState => ({
-            twoLevel: false,
-        }))
     }
 
 
@@ -77,8 +75,10 @@ class Search extends Component {
 
         //if drinks is only one object render drink
         if (drinks.length === 1) {
+            let recents = this.updateRecents(drinks[0].strDrink)
             this.setState({
-                drink: drinks[0]
+                drink: drinks[0],
+                recents: recents,
             })
             //else sends results to resultsArray in state
         } else {
@@ -119,6 +119,23 @@ class Search extends Component {
         }
     }
 
+    updateRecents = (str) => {
+        let recents = this.state.recents
+        if (recents.length > 4) {
+            recents = recents.slice(1)
+            recents.push(str)
+        } else {
+        recents.push(str)
+        }
+        return recents
+    }
+    
+    recentSearch = (str) => {
+        let name = str
+        let url = this.state.url + "search.php?s=" + name
+        this.apiCall(url)
+    }
+
     render () {
         
         //handle what will display in details depending on results of api call
@@ -130,7 +147,7 @@ class Search extends Component {
                     <button onClick={this.handleClick} id="search" >Get Random</button>
                 </div>
                 {this.defineDetail()}
-                
+                <Recents recents={this.state.recents} recentSearch={this.recentSearch} />
             </div>
         )
     }

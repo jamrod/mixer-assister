@@ -4,8 +4,7 @@ import '../../App.css'
 
 class Name extends Component {
     constructor(props) {
-        super(props)
-        
+        super(props)  
     }
 
     componentDidMount() {
