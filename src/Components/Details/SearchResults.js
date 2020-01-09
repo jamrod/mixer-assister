@@ -15,10 +15,10 @@ function SearchResults(props) {
 
     return (
         
-        <div className="flex-container-column details search-results">
+        <div className="flex-container-column details">
             <h3>Search Results</h3>
             
-            <div className="flex-container-row">
+            <div className="flex-container-row search-results">
                 {results.map((item, i) => (
                     <Link to={{
                         pathname: "/drink/" + item.strDrink,
@@ -26,7 +26,7 @@ function SearchResults(props) {
                             drink: item
                         }
                     }} key={i} >
-                        <div className="flex-container-column">
+                        <div className="flex-container-column result-cell">
                             {item.strDrink}
                             <img src={item.strDrinkThumb} className="thumbs" alt="thumb" />
                         </div>

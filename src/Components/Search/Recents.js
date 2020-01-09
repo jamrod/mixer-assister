@@ -7,7 +7,7 @@ function Recents (props) {
         <div className="flex-container-row recents">
             <p>Recent Drinks:</p>
             {recents.map((item, i) => (
-                <span onClick={() => (props.recentSearch(item))} key={i}>{item}</span>
+                <span onClick={() => (props.recentSearch(item))} key={i} className="clickable">{item}</span>
             ))}
         </div>
     )
