@@ -16,6 +16,9 @@ class Search extends Component {
             resultsArray: [],
             drink: null,
             recents: [],
+            searchFailed: false,
+            raw: {},
+            lastSearch: '',
         }
     }
 
@@ -28,15 +31,19 @@ class Search extends Component {
 
     //method to handle click, also triggered by keydown enter
     handleClick = () => {
-        if (this.state.searchField !== '') {
+        let searchTerm = this.state.searchField
+        if (searchTerm !== '') {
+            this.setState(prevState => ({
+                searchField: '',
+                lastSearch: searchTerm,
+            }))
             this.nameSearch()
+
         } else {
             let url = this.state.url + "random.php"
             this.apiCall(url)
         }
-        this.setState(prevState => ({
-            searchField: '',
-        }))
+        
 
         document.querySelector('#search').textContent = "Get Random"
     }
@@ -70,26 +77,39 @@ class Search extends Component {
 
     //handles results of API call
     handleResults = (res) => {
-        console.log("handleResults" + res.drinks)
-        let drinks = Array.from(res.drinks)
+        this.setState({raw: res})
+        if (res.drinks) {
+            
+            let drinks = Array.from(res.drinks)
 
-        //if drinks is only one object render drink
-        if (drinks.length === 1) {
-            let recents = this.updateRecents(drinks[0].strDrink)
+            //if drinks is only one object render drink
+            if (drinks.length === 1) {
+                let recents = this.updateRecents(drinks[0].strDrink)
+                this.setState({
+                    drink: drinks[0],
+                    recents: recents,
+                    lastSearch: '',
+                })
+                //else sends results to resultsArray in state
+            } else {
+                let recents = this.updateRecents(this.state.lastSearch)
+                this.setState(prevState => ({
+                    drink: null,
+                    resultsArray: drinks,
+                    recents: recents,
+                    lastSearch: '',
+                }))
+            }
+            //sets results to true so they can be rendered
             this.setState({
-                drink: drinks[0],
-                recents: recents,
+                results: true,
+                searchFailed: false,
             })
-            //else sends results to resultsArray in state
         } else {
-            this.setState(prevState => ({
-                resultsArray: drinks
-            }))
+            this.setState({
+                searchFailed: true,
+            })
         }
-        //sets results to true so they can be rendered
-        this.setState({
-            results: true
-        })
     }
 
     defineDetail = () => {
@@ -121,13 +141,16 @@ class Search extends Component {
 
     updateRecents = (str) => {
         let recents = this.state.recents
-        if (recents.length > 4) {
-            recents = recents.slice(1)
-            recents.push(str)
+        if (recents.join(',').includes(`,${str},`)) {
         } else {
-        recents.push(str)
+            if (recents.length > 4) {
+                recents = recents.slice(1)
+                recents.push(str)
+            } else {
+            recents.push(str)
+            }
         }
-        return recents
+            return recents
     }
     
     recentSearch = (str) => {
@@ -147,7 +170,8 @@ class Search extends Component {
                     <button onClick={this.handleClick} id="search" >Get Random</button>
                 </div>
                 {this.defineDetail()}
-                <Recents recents={this.state.recents} recentSearch={this.recentSearch} />
+                { this.state.searchFailed ? <p id="info">That search didn't find results, try to broaden your search with a general term like "martini"</p> : '' }
+                { this.state.recents.length > 1 ? <Recents recents={this.state.recents} recentSearch={this.recentSearch} /> : '' }
             </div>
         )
     }

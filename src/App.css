@@ -58,7 +58,11 @@ h2, h3, h4 {
 
 .details{
   border: white 1px solid;
+}
 
+.details-pic {
+  max-width: 500px;
+  padding: 5px 0 10px 0;
 }
 
 .drink {
@@ -125,6 +129,12 @@ a:hover, .clickable:hover {
 .details p {
   margin: 5px 10px;
 } 
+
+#info {
+  color: rgb(200, 50, 25);
+  background-color: rgba(255,250,250,.8);
+  border-radius: 5px;
+}
 
 .recents{
   font-size: small;

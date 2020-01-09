@@ -9,7 +9,7 @@ function Details () {
         <div className="flex-container-column details">
             <h3>Search Results</h3>
             <p>Use search field above to search for a cocktail. If nothing is entered then click the button to get a random drink suggestion.</p>
-            <p id="info"></p>
+            <img src="/glasses3.jpg" alt="empty-glasses" className="details-pic" />
         </div>
     )
 }
