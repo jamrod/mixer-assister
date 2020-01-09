@@ -56,9 +56,9 @@ class CategorySearch extends Component {
                             <img src={item.strDrinkThumb} className="thumbs" alt="thumb" />
                         </div>
                     ))}
-                    <div classname="flex-container-row page-buttons">
+                    <div className="flex-container-row page-buttons">
                         {this.state.page >= 1 ? <button onClick={()  => this.changePage(false)}>Previous</button> : ''}
-                        <button onClick={() => this.changePage(true)}>Next</button>
+                        {this.state.page < this.state.pagesArray.length ? <button onClick={() => this.changePage(true)}>Next</button> : ''}
                     
                     </div>
                 </div>

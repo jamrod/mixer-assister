@@ -20,7 +20,6 @@ class Search extends Component {
             drink: null,
             recents: [],
             searchFailed: false,
-            raw: {},
             lastSearch: '',
             categorySearchEnabled: false,
         }
@@ -44,6 +43,7 @@ class Search extends Component {
 
     //method to handle click, also triggered by keydown enter
     handleClick = () => {
+        console.log("from handle click " + this.state.category)
         let searchTerm = this.state.searchField
         if (searchTerm !== '') {
             this.setState(prevState => ({
@@ -53,12 +53,15 @@ class Search extends Component {
             }))
             this.nameSearch()
 
-        } else if(this.state.categorySearchEnabled) {
+        } else if(this.state.category !== 'Select Category') {
             console.log("calling categorySearch")
             this.categorySearch()
         } else {
             let url = this.state.url + "random.php"
             this.apiCall(url)
+            this.setState({
+                categorySearchEnabled: false,
+            })
         }
         
 
@@ -100,7 +103,6 @@ class Search extends Component {
 
     //handles results of API call
     handleResults = (res) => {
-        this.setState({raw: res})
         if (res.drinks) {
             
             let drinks = Array.from(res.drinks)
@@ -112,6 +114,7 @@ class Search extends Component {
                     category: 'Select Category',
                     drink: drinks[0],
                     recents: recents,
+                    resultsArray: [],
                     lastSearch: '',
                 })
                 //else if category sends results to resultsArray in state 
@@ -159,9 +162,8 @@ class Search extends Component {
                     }
                 }} />
                 )
-            //else if category- render the category search
+            //else if category, render category search
             }  else if (this.state.categorySearchEnabled) {
-                this.setState({categorySearchEnabled: false,})
                 console.log("Category Search from defineDetail")
                 return (
                     <>
@@ -169,7 +171,6 @@ class Search extends Component {
                         <Redirect push to="/category-search" />
                     </>
                 )
-            //else render all the results as links in search-results    
             }else {
                 return (
                 <Redirect push to={{
@@ -215,13 +216,14 @@ class Search extends Component {
             <div className="flex-container-column">
                 <div className="search-items flex-container-column" onKeyDown={this.keyPressed}>
                     <Name searchField={this.state.searchField} getChange={this.getChange} />
-                    <Category option={this.category} getCategory={this.getCategory} />
+                    <Category option={this.state.category} getCategory={this.getCategory} />
                     <button onClick={this.handleClick} id="search" >Get Random</button>
                     
                 </div>
-                {this.defineDetail()}
+                
                 { this.state.searchFailed ? <p id="info">That search didn't find results, try to broaden your search with a general term like "martini"</p> : '' }
                 { this.state.recents.length > 1 ? <Recents recents={this.state.recents} recentSearch={this.secondSearch} /> : '' }
+                {this.defineDetail()}
             </div>
         )
     }
