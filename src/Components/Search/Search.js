@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
-import { Redirect } from 'react-router-dom'
+import { Redirect, Route } from 'react-router-dom'
 
 import Name from './Name'
+import Category from './Category'
 import Recents from './Recents'
+import CategorySearch from './CategorySearch'
 
 import '../../App.css'
 
@@ -11,6 +13,7 @@ class Search extends Component {
         super(props)
         this.state = {
             searchField: '',
+            category: 'Select Category',
             url:"https://www.thecocktaildb.com/api/json/v1/1/",
             results: false,
             resultsArray: [],
@@ -19,6 +22,7 @@ class Search extends Component {
             searchFailed: false,
             raw: {},
             lastSearch: '',
+            categorySearchEnabled: false,
         }
     }
 
@@ -26,6 +30,15 @@ class Search extends Component {
     //method to update state from form changes
     getChange = (str) => {
         this.setState(prevState => ({searchField: str}))
+        document.querySelector('#search').textContent = "Search"
+    }
+
+    //method to get category change
+    getCategory = (str) => {
+        this.setState(prevState => ({
+            category: str,
+            categorySearchEnabled: true,
+        }))
         document.querySelector('#search').textContent = "Search"
     }
 
@@ -39,6 +52,9 @@ class Search extends Component {
             }))
             this.nameSearch()
 
+        } else if(this.state.categorySearchEnabled) {
+            console.log("calling categorySearch")
+            this.categorySearch()
         } else {
             let url = this.state.url + "random.php"
             this.apiCall(url)
@@ -62,6 +78,11 @@ class Search extends Component {
         this.apiCall(url)
     }
 
+    //method to start a search by category
+    categorySearch = () => {
+        let url = this.state.url + "filter.php?c=" + this.state.category
+        this.apiCall(url)
+    }
 
     //API call, passes results to handleResults
     apiCall(url) {
@@ -86,14 +107,25 @@ class Search extends Component {
             if (drinks.length === 1) {
                 let recents = this.updateRecents(drinks[0].strDrink)
                 this.setState({
+                    category: 'Select Category',
                     drink: drinks[0],
                     recents: recents,
                     lastSearch: '',
                 })
+                //else if category sends results to resultsArray in state 
+            } else if (!this.state.category === 'Select Category') {
+                this.setState(prevState => ({
+                    category: 'Select Category',
+                    drink: null,
+                    resultsArray: drinks,
+                    lastSearch: '',
+                    categorySearchEnabled: true,
+                }))
                 //else sends results to resultsArray in state
-            } else {
+            }else {
                 let recents = this.updateRecents(this.state.lastSearch)
                 this.setState(prevState => ({
+                    category: 'Select Category',
                     drink: null,
                     resultsArray: drinks,
                     recents: recents,
@@ -107,6 +139,7 @@ class Search extends Component {
             })
         } else {
             this.setState({
+                results: false,
                 searchFailed: true,
             })
         }
@@ -125,7 +158,11 @@ class Search extends Component {
                 }} />
                 )
             //else render all the results as links in search-results
-            }  else {
+            }  else if (this.setState.Enabled) {
+                return (
+                    <Route path="/category-search" render={props => <CategorySearch secondSearch = {this.secondSearch} results={this.state.resultsArray} />} />
+                )
+            }else {
                 return (
                 <Redirect push to={{
                     pathname: "/search-results",
@@ -153,7 +190,7 @@ class Search extends Component {
             return recents
     }
     
-    recentSearch = (str) => {
+    secondSearch = (str) => {
         let name = str
         let url = this.state.url + "search.php?s=" + name
         this.apiCall(url)
@@ -167,11 +204,13 @@ class Search extends Component {
             <div className="flex-container-column">
                 <div className="search-items flex-container-column" onKeyDown={this.keyPressed}>
                     <Name searchField={this.state.searchField} getChange={this.getChange} />
+                    <Category option={this.category} getCategory={this.getCategory} />
                     <button onClick={this.handleClick} id="search" >Get Random</button>
+                    
                 </div>
                 {this.defineDetail()}
                 { this.state.searchFailed ? <p id="info">That search didn't find results, try to broaden your search with a general term like "martini"</p> : '' }
-                { this.state.recents.length > 1 ? <Recents recents={this.state.recents} recentSearch={this.recentSearch} /> : '' }
+                { this.state.recents.length > 1 ? <Recents recents={this.state.recents} recentSearch={this.secondSearch} /> : '' }
             </div>
         )
     }
