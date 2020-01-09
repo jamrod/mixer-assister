@@ -1,68 +1,89 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Project Overview
 
-## Available Scripts
 
-In the project directory, you can run:
+## Project Description
 
-### `npm start`
+Mixer Assister is a web app using thecocktaildb.com api to allow a user to search for a specific cocktail, browse for cocktails by category or get a random drink suggestion. Results will contain instructions for making the drink and an image.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Project Links
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+- [GitHub repo](https://git.generalassemb.ly/jamrod/mixer-assister)
+- [Live page on Netlify](https://practical-babbage-bbcc33.netlify.com)
 
-### `npm test`
+## Wireframes
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Upload images of wireframe to cloudinary and add the link here with a description of the specific wireframe.
 
-### `npm run build`
+- [wireframes for Mixer Assister](https://i.imgur.com/8UoHyuM.png?1)
+- [react architecture]()
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Define the the React components and the architectural design of your app.
 
-### `npm run eject`
+### MVP/PostMVP - 5min
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+App component will just house the route component and links to the main page components, Header, Explainer, Search, Footer
+Search Component has most of the logic and renders the search components and Details components, Name, Category, Details, Category Search, SearchResults and Drink Components.
+Links are used from the SearcResults component to render the Drink component, and a Home Link will route back to the default Details component
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+#### MVP EXAMPLE
+- Pull data from the API by a name search or random search
+- Render the drink on the page with ingredients, directions and a pic
+- Navigate to a final drink result when multiple drinks are returned
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+#### PostMVP EXAMPLE
 
-## Learn More
+- Add category search and render results, pull down final drink from API
+- Add recents component with recent searches which will link back to results
+- Add testing
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+## Time Frames
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
 
-### Analyzing the Bundle Size
+Component | Priority | Estimated Time | Time Spent | Actual |
+| --- | :---: | :---: | :---: | :---: |
+| Planning | 1 | 2hrs | 2hrs
+| Build Basic Components | 1 | 3hr |
+| Build Tests | 2 | 4 hr |
+| Working with API | 1 | 4hr |
+| Render Drink | 1 | 3hr |
+| Complete MVP (CSS) | 2 | 3hr |
+| Added search functionality | 3 | 2hr |
+| Recents | 3 | 3hr |
+| Animation | 4 | 4hr |
+| Final Tweaks and Tests | 3 | 4hr |
+| Video Presentation | 1 | 3hr | 
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+## Additional Libraries
+ Use this section to list all supporting libraries and thier role in the project such as Axios, ReactStrap, D3, etc. 
 
-### Making a Progressive Web App
+## Code Snippet
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+This is a sub route and a redirect to an optional component. I had to do it this way to pass a method through Router
 
-### Advanced Configuration
+```
+<>
+    <Route path="/category-search" render={props => <CategorySearch secondSearch = {this.secondSearch} results={this.state.resultsArray} />} />
+    <Redirect push to="/category-search" />                        
+</>
+```
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+## Issues and Resolutions
+-Couldn't send a method through a Link
+    --Solved by using a sub route and passing the method through the route
+-Got a lot of "cannot read property ... of null"
+    --Usually an issue with the variable, missing this. or this.state or props.
 
-### Deployment
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+#### SAMPLE.....
+**ERROR**: Uncaught TypeError: Cannot read property 'includes' of null                               
+**RESOLUTION**: Broke up code so variables were declared first then ran .includes
+	So instead of “drink.drinkArr[i].includes(“string”)” 
+this
+		Const key = drinkArr[i]
+		Const value = drink[key]
+		key.includes(string)
