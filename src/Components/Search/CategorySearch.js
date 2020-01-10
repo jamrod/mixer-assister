@@ -11,15 +11,17 @@ class CategorySearch extends Component {
         }
     }
 
-    divideArray = (arr) => {
-        while (arr.length > 10) {
-            let chunk = arr.slice(0,10)
-            this.state.pagesArray.push(chunk)
-            arr = arr.slice(10)
+    divideArray = (arr, num) => {
+        let outArr = []
+        while (arr.length > num) {
+            let chunk = arr.slice(0,num)
+            outArr.push(chunk)
+            arr = arr.slice(num)
         }
         if (arr.length >= 1) {
-            this.state.pagesArray.push(arr)
+            outArr.push(arr)
         }
+        return outArr
     }
 
     changePage = (bool) => {
@@ -36,13 +38,18 @@ class CategorySearch extends Component {
     }
 
     determineRender = () => {
+        console.log(this.state.pagesArray)
+        if (this.state.pagesArray.length === 0) { return
+        }
         if (this.state.pagesArray.length === 1) {
             return (
                 <div className="flex-container-row search-results">
                 {this.props.results.map((item, i) => (
                 <div onClick={() => this.props.secondSearch(item.strDrink)} key={i} className="flex-container-column result-cell" >
-                    {item.strDrink}
-                    <img src={item.strDrinkThumb} className="thumbs" alt="thumb" />
+                    <div className="thumb-label">
+                        <p>{item.strDrink}</p>
+                        <img src={item.strDrinkThumb} className="thumbs" alt="thumb" />
+                    </div>
                 </div>
             ))}
                 </div>
@@ -52,25 +59,32 @@ class CategorySearch extends Component {
                 <div className="flex-container-row search-results">
                     {this.state.pagesArray[this.state.page].map((item, i) => (
                         <div onClick={() => this.props.secondSearch(item.strDrink)} key={i} className="flex-container-column result-cell" >
-                            {item.strDrink}
-                            <img src={item.strDrinkThumb} className="thumbs" alt="thumb" />
+                            <div className="thumb-label">
+                                <p>{item.strDrink}</p>
+                                <img src={item.strDrinkThumb} className="thumbs" alt="thumb" />
+                            </div>
                         </div>
                     ))}
                     <div className="flex-container-row page-buttons">
                         {this.state.page >= 1 ? <button onClick={()  => this.changePage(false)}>Previous</button> : ''}
-                        {this.state.page < this.state.pagesArray.length ? <button onClick={() => this.changePage(true)}>Next</button> : ''}
+                        {this.state.page < this.state.pagesArray.length -1 ? <button onClick={() => this.changePage(true)}>Next</button> : ''}
                     
                     </div>
                 </div>
             )
         }
     }
+
+    componentDidMount() {
+        const results = this.props.results
+        let pagesArr = this.divideArray(results,12)
+            this.setState({
+                pagesArray: pagesArr,
+            })
+    }
     
     
         render() {
-            const results = this.props.results
-            this.divideArray(results)
-
             
         return (
         <div className="flex-container-column details">
@@ -80,7 +94,6 @@ class CategorySearch extends Component {
         </div>
         )
     }
-    
 }
 
 export default CategorySearch

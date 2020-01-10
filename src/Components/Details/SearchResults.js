@@ -26,8 +26,8 @@ function SearchResults(props) {
                             drink: item
                         }
                     }} key={i} >
-                        <div className="flex-container-column result-cell">
-                            {item.strDrink}
+                        <div className="result-cell">
+                            <div className="thumb-label"><p>{item.strDrink}</p></div>
                             <img src={item.strDrinkThumb} className="thumbs" alt="thumb" />
                         </div>
                         </Link>
