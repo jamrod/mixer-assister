@@ -45,7 +45,7 @@ class CategorySearch extends Component {
             return (
                 <div className="flex-container-row search-results">
                 {this.props.results.map((item, i) => (
-                <div onClick={() => this.props.secondSearch(item.strDrink)} key={i} className="flex-container-column result-cell" >
+                <div onClick={() => this.props.secondSearch(item.idDrink)} key={i} className="flex-container-column result-cell" >
                     <div className="thumb-label">
                         <p>{item.strDrink}</p>
                         <img src={item.strDrinkThumb} className="thumbs" alt="thumb" />
@@ -58,7 +58,7 @@ class CategorySearch extends Component {
             return (
                 <div className="flex-container-row search-results">
                     {this.state.pagesArray[this.state.page].map((item, i) => (
-                        <div onClick={() => this.props.secondSearch(item.strDrink)} key={i} className="flex-container-column result-cell" >
+                        <div onClick={() => this.props.secondSearch(item.idDrink)} key={i} className="flex-container-column result-cell" >
                             <div className="thumb-label">
                                 <p>{item.strDrink}</p>
                                 <img src={item.strDrinkThumb} className="thumbs" alt="thumb" />
