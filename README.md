@@ -46,17 +46,46 @@ Links are used from the SearcResults component to render the Drink component, an
 
 Component | Priority | Estimated Time | Time Spent | Actual |
 | --- | :---: | :---: | :---: | :---: |
-| Planning | 1 | 2hrs | 2hrs
-| Build Basic Components | 1 | 3hr |
-| Build Tests | 2 | 4 hr |
-| Working with API | 1 | 4hr |
-| Render Drink | 1 | 3hr |
-| Complete MVP (CSS) | 2 | 3hr |
-| Added search functionality | 3 | 2hr |
-| Recents | 3 | 3hr |
-| Animation | 4 | 4hr |
-| Final Tweaks and Tests | 3 | 4hr |
-| Video Presentation | 1 | 3hr | 
+| Planning | 1 | 2hrs | 2hrs | 2hr |
+| Build Basic Components | 1 | 3hr | 2.5hr | 2.5hr |
+| Build Tests | 2 | 4 hr | 1hr | 1hr |
+| Working with API | 1 | 4hr | 1hr | 
+| Render Drink | 1 | 3hr | 3hr | 3hr |
+| Complete MVP (CSS) | 2 | 3hr | 4.5hr | 4.5hr |
+| Added search functionality | 3 | 2hr | 6hr | 6hr |
+| Recents | 3 | 3hr | 3hr | 3hr |
+| Animation | 4 | 4hr | 0 | 0 |
+| Final Tweaks and Tests | 3 | 4hr | 4hr |
+| Video Presentation | 1 | 3hr | 2hr | 2hr |
+
+from my timelogs...
+-basic components 2.5
+-tests 1hr
+-search 1hr
+-render a drink 3
+-route 1.5
+-search 3
+-tweaking 1
+-route 1
+-css 2
+-remove category .5
+-css 2
+-outcomes 1.5
+-css .5
+-recents 4
+-re-install category search .5
+-pagination of search results with css 2
+-category search 1
+-more css for category search results 1.5
+-recents .5
+-video 2hr
+-search refactor 1
+
+total search: 4
+total category or twolevel search: 6.5
+route: 2.5
+recents: 4.5
+
 
 ## Additional Libraries
  Use this section to list all supporting libraries and thier role in the project such as Axios, ReactStrap, D3, etc. 
