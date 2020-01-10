@@ -40,7 +40,6 @@ class Search extends Component {
 
     //method to handle click, also triggered by keydown enter
     handleClick = () => {
-        console.log("from handle click " + this.state.category)
         let searchTerm = this.state.searchField.toLowerCase()
         if (searchTerm !== '') {
             this.setState(prevState => ({
@@ -49,7 +48,6 @@ class Search extends Component {
             this.nameSearch(searchTerm)
 
         } else if(this.state.category !== 'Select Category') {
-            console.log("calling categorySearch")
             this.categorySearch()
         } else {
             let url = this.state.url + "random.php"
@@ -80,9 +78,9 @@ class Search extends Component {
         this.setState({category: 'Select Category',})
     }
 
+    //method to run search by id from categorySearch
     secondSearch = (id) => {
         let url = this.state.url + "lookup.php?i=" + id
-        //"https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=11007"
         this.apiCall(url)
     }
 
@@ -92,7 +90,6 @@ class Search extends Component {
         .then(response => response.json())
         .then(response => {
             this.handleResults(response)
-            console.log("res " + response)
         })
         .catch(err => {
             console.error(err)
@@ -114,31 +111,21 @@ class Search extends Component {
                     recents: recents,
                     resultsArray: [],
                 })
-                //else if category sends results to resultsArray in state 
+            //else sends results to resultsArray in state 
             } else {
-                console.log("Category Search from handle results")
                 this.setState(prevState => ({
                     category: 'Select Category',
                     drink: null,
                     resultsArray: drinks,
                 }))
-                //else sends results to resultsArray in state
+                
             }
-            // else {
-            //     let recents = this.updateRecents(this.state.lastSearch)
-            //     this.setState(prevState => ({
-            //         category: 'Select Category',
-            //         drink: null,
-            //         resultsArray: drinks,
-            //         recents: recents,
-            //         lastSearch: '',
-            //     }))
-            // }
-            //sets results to true so they can be rendered
+           
             this.setState({
                 results: true,
                 searchFailed: false,
             })
+        //if nothing returns from api set searchFailed
         } else {
             this.setState({
                 results: false,
@@ -147,7 +134,7 @@ class Search extends Component {
         }
     }
 
-        //define what gets rendered in the details area depending on wheter it is a single drink, multiple drinks or a category search
+        //define what gets rendered in the details area depending on whether it is a single drink or multiple drinks
     defineDetail = () => {
         
         if (this.state.results) { //if got results
@@ -160,7 +147,7 @@ class Search extends Component {
                     }
                 }} />
                 )
-            //else if category, render category search
+            //else render multiple drinks in categorySearch
             }  else {
                 return (
                     <>
@@ -168,34 +155,23 @@ class Search extends Component {
                         <Redirect push to="/category-search" />
                     </>
                 )
-            //else render multiple drinks in search results
+            
             } 
-            // else {
-            //     return (
-            //     <Redirect push to={{
-            //         pathname: "/search-results",
-            //         state: {
-            //             results: this.state.resultsArray,
-            //         }
-            //     }} />
-            //     )
-            // }
             
         }
     }
 
+    //method to update recents without duplicates and keep list short
     updateRecents = (str) => {
         let recents = this.state.recents
-        console.log("str " + str)
         function checkExists(arr, str) {
             let bool = false
             for(let i=0; i<arr.length; i++){
-                if (arr[i] == str) {
+                if (arr[i] === str) {
                     bool = true
                 }
             return bool
             }}
-            console.log(checkExists(recents, str))
         if (checkExists(recents, str)) {
             return recents
         } else {
@@ -211,8 +187,6 @@ class Search extends Component {
     
 
     render () {
-        
-        //handle what will display in details depending on results of api call
         
         return (
             <div className="flex-container-column">

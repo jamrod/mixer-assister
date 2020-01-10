@@ -5,7 +5,7 @@ function Recents (props) {
     
     return (
         <div className="flex-container-row recents">
-            <p>Recent Searches:</p>
+            <p>Recent Drinks:</p>
             {recents.map((item, i) => (
                 <span onClick={() => (props.recentSearch(item))} key={i} className="clickable">{item}</span>
             ))}
@@ -14,4 +14,3 @@ function Recents (props) {
 }
 
 export default Recents
-// onClick={props.nameSearch(item)>

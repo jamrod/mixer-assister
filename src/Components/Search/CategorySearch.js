@@ -11,6 +11,7 @@ class CategorySearch extends Component {
         }
     }
 
+    //method to divide up the results so they can be paginated
     divideArray = (arr, num) => {
         let outArr = []
         while (arr.length > num) {
@@ -24,6 +25,7 @@ class CategorySearch extends Component {
         return outArr
     }
 
+    //method to change through results pages
     changePage = (bool) => {
         let current = this.state.page
         if (bool) {
@@ -37,10 +39,12 @@ class CategorySearch extends Component {
         }
     }
 
+    //method to determine the way the results will render based on the number of results
     determineRender = () => {
-        console.log(this.state.pagesArray)
+        //don't render until pages array is built
         if (this.state.pagesArray.length === 0) { return
         }
+        //if only one page then render without pagination
         if (this.state.pagesArray.length === 1) {
             return (
                 <div className="flex-container-row search-results">
@@ -54,6 +58,7 @@ class CategorySearch extends Component {
             ))}
                 </div>
             )
+        //else render with pagination, 'previous' button will only render after 1st page and 'next' will not render on last page
         } else {
             return (
                 <div className="flex-container-row search-results">

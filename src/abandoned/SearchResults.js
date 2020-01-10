@@ -6,12 +6,7 @@ import '../../App.css'
 function SearchResults(props) {
     console.log("SearchResults " + props)
     let results = props.location.state.results
-    //console.log(results)
-   
-    // if (results.length > 10) {
-    //     console.log("write long render function")
-    //     results = results.slice(0,10)
-    // } 
+
 
     return (
         

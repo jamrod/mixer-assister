@@ -3,13 +3,14 @@ import React from 'react'
 import '../../App.css'
 
 function Drink (props) {
-    // console.log("Drink " + props)
+   
     const drink = props.location.state.drink
     let drinkArray = Object.keys(drink)
     let ingredientArr = []
     let measureArr = []
     let ingredientsArr = []
     
+    //this loops through the ingredients and measurements and puts them together in  an array for rendering
     for (let i=0; i<drinkArray.length; i++) {
         const key = drinkArray[i]
         const value = drink[key]
@@ -53,7 +54,7 @@ function Drink (props) {
             </div>
             </div>
             <div className="pic-div">
-                <img src={drink.strDrinkThumb} className="pic" />
+                <img src={drink.strDrinkThumb} className="pic" alt="Drink" />
             </div>
         </div>
     )
