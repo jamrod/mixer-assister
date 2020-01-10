@@ -150,6 +150,7 @@ class Search extends Component {
         }
     }
 
+        //define what gets rendered in the details area depending on wheter it is a single drink, multiple drinks or a category search
     defineDetail = () => {
         
         if (this.state.results) { //if got results
@@ -164,13 +165,13 @@ class Search extends Component {
                 )
             //else if category, render category search
             }  else if (this.state.categorySearchEnabled) {
-                console.log("Category Search from defineDetail")
                 return (
                     <>
                         <Route path="/category-search" render={props => <CategorySearch secondSearch = {this.secondSearch} results={this.state.resultsArray} />} />
                         <Redirect push to="/category-search" />
                     </>
                 )
+            //else render multiple drinks in search results
             }else {
                 return (
                 <Redirect push to={{
@@ -187,7 +188,18 @@ class Search extends Component {
 
     updateRecents = (str) => {
         let recents = this.state.recents
-        if (recents.join(',').includes(`,${str},`)) {
+        console.log("str " + str)
+        function checkExists(arr, str) {
+            let bool = false
+            for(let i=0; i<arr.length; i++){
+                if (arr[i] == str) {
+                    bool = true
+                }
+            return bool
+            }}
+            console.log(checkExists(recents, str))
+        if (checkExists(recents, str)) {
+            return recents
         } else {
             if (recents.length > 4) {
                 recents = recents.slice(1)
