@@ -104,7 +104,7 @@ class Search extends Component {
 
             //if drinks is only one object render drink
             if (drinks.length === 1) {
-                let recents = this.updateRecents(drinks[0].strDrink)
+                let recents = this.updateRecents(drinks[0].strDrink, drinks[0].idDrink)
                 this.setState({
                     category: 'Select Category',
                     drink: drinks[0],
@@ -162,24 +162,31 @@ class Search extends Component {
     }
 
     //method to update recents without duplicates and keep list short
-    updateRecents = (str) => {
+    updateRecents = (str,id) => {
         let recents = this.state.recents
         function checkExists(arr, str) {
             let bool = false
-            for(let i=0; i<arr.length; i++){
-                if (arr[i] === str) {
+            for(let i=0; i < arr.length; i++){
+                if (arr[i].name === str) {
                     bool = true
-                }
+                }    
+            }
             return bool
-            }}
+        }
         if (checkExists(recents, str)) {
             return recents
         } else {
             if (recents.length > 4) {
                 recents = recents.slice(1)
-                recents.push(str)
+                recents.push({
+                    name: str,
+                    id: id,
+                })
             } else {
-            recents.push(str)
+            recents.push({
+                name: str,
+                id: id,
+            })
             }
         }
             return recents
@@ -198,7 +205,7 @@ class Search extends Component {
                 </div>
                 
                 { this.state.searchFailed ? <p id="info">That search didn't find results, try to broaden your search with a general term like "martini"</p> : '' }
-                { this.state.recents.length > 1 ? <Recents recents={this.state.recents} recentSearch={this.nameSearch} /> : '' }
+                { this.state.recents.length > 1 ? <Recents recents={this.state.recents} recentSearch={this.secondSearch} /> : '' }
                 {this.defineDetail()}
             </div>
         )
