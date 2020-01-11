@@ -206,5 +206,9 @@ a:hover, .clickable:hover {
   .name-input {
     flex-direction: column;
   }
+
+  .details-pic {
+    max-width: 250px;
+  }
 }
 
