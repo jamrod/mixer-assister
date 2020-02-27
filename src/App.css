@@ -1,18 +1,19 @@
 body {
-  background: url("/glasses2.jpg") rgb(50, 50, 50);
-  background-size: cover;
-  background-repeat: no-repeat;
-  font-family: 'Noticia Text', serif;
+  /* background: url("/glasses2.jpg") rgb(50, 50, 50); */
+  background-color: white;
+  /* background-size: cover;
+  background-repeat: no-repeat; */
+  font-family: "Noticia Text", serif;
 }
 
 .App {
-  background-color: rgba(255,250,250,.65) ;
+  background-color: rgba(255, 250, 250, 0.65);
   max-width: 800px;
   margin: 0 auto;
   padding: 5px 20px;
 }
 
-.flex-container-row{
+.flex-container-row {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -20,20 +21,26 @@ body {
   flex-wrap: wrap;
 }
 
-.flex-container-column{
+.flex-container-column {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 .header {
-  font-family: 'Abril Fatface', cursive;
-  letter-spacing: .1em;
+  background-image: url("img/MixerAssister.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 300px;
+  width: 100%;
 }
 
-h2, h3, h4 {
-  font-family: 'Courier Prime', monospace;
-  letter-spacing: .02em;
+h2,
+h3,
+h4 {
+  font-family: "Courier Prime", monospace;
+  letter-spacing: 0.02em;
 }
 
 #explainer {
@@ -44,7 +51,8 @@ h2, h3, h4 {
   padding-bottom: 5px;
 }
 
-.name-input label, input {
+.name-input label,
+input {
   padding: 0 10px;
 }
 
@@ -56,11 +64,11 @@ h2, h3, h4 {
   margin: 5px;
 }
 
-#category-select{
+#category-select {
   height: 25px;
 }
 
-.details{
+.details {
   border: white 1px solid;
 }
 
@@ -79,8 +87,9 @@ h2, h3, h4 {
 .drink-description {
   grid-column: 1;
 }
- 
-.categories, span{
+
+.categories,
+span {
   padding: 0 10px;
   font-size: small;
 }
@@ -121,7 +130,8 @@ h2, h3, h4 {
   padding: 5px;
 }
 
-a:hover, .clickable:hover {
+a:hover,
+.clickable:hover {
   color: rgb(50, 50, 100);
   text-decoration: underline;
 }
@@ -152,34 +162,34 @@ a:hover, .clickable:hover {
 
 .thumb-label p {
   z-index: 3;
-  color:black;
+  color: black;
   text-align: center;
   font-size: small;
-  background-color: rgba(250, 250, 250, .5);
+  background-color: rgba(250, 250, 250, 0.5);
   border-radius: 8px;
 }
 
-.page-buttons button{
+.page-buttons button {
   min-width: 75px;
   min-height: 25px;
 }
 
 .details p {
   margin: 5px 10px;
-} 
+}
 
 #info {
   color: rgb(200, 50, 25);
-  background-color: rgba(255,250,250,.8);
+  background-color: rgba(255, 250, 250, 0.8);
   border-radius: 5px;
 }
 
-.recents{
+.recents {
   font-size: small;
   justify-content: space-around;
 }
 .recents span {
-  padding:0 5px;
+  padding: 0 5px;
 }
 
 .foot {
@@ -193,15 +203,18 @@ a:hover, .clickable:hover {
 }
 
 @media screen and (max-width: 600px) {
-  
-  .drink{
+  .header {
+    height: 125px;
+  }
+
+  .drink {
     display: flex;
     flex-direction: column;
     align-items: center;
   }
 
   .pic {
-    max-width: 250px
+    max-width: 250px;
   }
   .name-input {
     flex-direction: column;
@@ -211,4 +224,3 @@ a:hover, .clickable:hover {
     max-width: 250px;
   }
 }
-
